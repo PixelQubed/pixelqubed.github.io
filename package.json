@@ -1,0 +1,19 @@
+{
+  "name": "pixelqubed-studio",
+  "private": true,
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "build": "node build-preview.mjs",
+    "preview": "node preview-server.mjs",
+    "studio": "node portfolio-library.mjs",
+    "test": "node --test tests/*.test.cjs tests/*.test.mjs",
+    "dev": "node dev.mjs",
+    "build:published": "node build-published.mjs"
+  },
+  "devDependencies": {
+    "vite": "8.2.2"
+  }
+}

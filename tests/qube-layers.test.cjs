@@ -1,0 +1,6 @@
+const assert=require('node:assert/strict'),{QubeModel}=require('../assets/qube-model.js');
+const solved=new QubeModel().serialise();
+for(let axis=0;axis<3;axis++)for(const plane of [-1,0,1]){const q=new QubeModel();assert.equal(q.slice(axis,plane).length,plane===0?8:9);q.turnLayer(axis,plane,1);assert.equal(q.isSolved(),false);q.turnLayer(axis,plane,-1);assert.equal(q.serialise(),solved);for(let i=0;i<4;i++)q.turnLayer(axis,plane,1);assert.equal(q.serialise(),solved);}
+const q=new QubeModel(),sequence=[[0,0,1],[1,0,-1],[2,0,1],[2,1,-1],[0,-1,1],[1,1,1]];for(const m of sequence)q.turnLayer(...m);assert.equal(new Set(q.cells.map(c=>c.position.join(','))).size,26);for(const c of q.cells)for(const face of c.stickers){const n=q.normal(c,face);assert.equal(n.reduce((sum,v,i)=>sum+v*c.position[i],0),1);}for(const [a,p,d] of sequence.reverse())q.turnLayer(a,p,-d);assert.equal(q.isSolved(),true);assert.equal(q.serialise(),solved);
+for(const [id,axis,plane,dx,dy] of [['112',1,0,50,0],['112',0,0,0,50],['102',1,-1,50,0],['212',0,1,0,50]]){const a=q.dragMove(id,'F',dx,dy,-24,-32),b=q.dragMove(id,'F',-dx,-dy,-24,-32);assert.equal(a.axis,axis);assert.equal(a.plane,plane);assert.equal(a.direction,-b.direction);}
+console.log('All nine layers: closure, inverse, exterior stickers, middle-row drag direction and mixed-layer solve passed.');

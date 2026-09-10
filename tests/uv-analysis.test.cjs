@@ -1,0 +1,5 @@
+const assert=require('node:assert/strict'),fs=require('fs');
+(async()=>{const source=fs.readFileSync(__dirname+'/../assets/model-analysis.js','utf8');const {analyseUV,mergeUV}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
+function geometry(coords){return{attributes:{uv:{getX:i=>coords[i*2],getY:i=>coords[i*2+1]},position:{count:coords.length/2}},groups:[]};}
+const square=geometry([0,0,1,0,0,1,1,0,1,1,0,1]);const full=analyseUV(square);assert.equal(full.coverage,100);assert.equal(full.overlap,0);assert.equal(full.outside,0);assert.equal(mergeUV([full,full]).overlap,100);
+const half=analyseUV(geometry([0,0,1,0,0,1]));assert.ok(Math.abs(half.coverage-50)<1);const outside=analyseUV(geometry([2,2,3,2,2,3]));assert.equal(outside.coverage,0);assert.equal(outside.outside,1);const flat=analyseUV(geometry([0,0,0,0,0,0]));assert.equal(flat.degenerate,1);assert.equal(analyseUV({attributes:{position:{count:0}},groups:[]}).available,false);console.log('UV analysis: square, half-tile, overlap, out-of-bounds, degenerate and missing-UV checks passed');})();
