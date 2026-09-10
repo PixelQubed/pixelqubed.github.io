@@ -61,7 +61,7 @@ This covers puzzle layer closure/reversal, UV analysis, GLB validation, public/d
 
 Discord is preferred: https://discord.com/users/196682910768562179 (`@PixelQubed`). Email: `pixelqubed@pm.me`. The portfolio separates agent-assisted software from artwork, which does not and will not involve agentic tools. Commission legal paragraphs remain unchanged.
 
-Generated dependencies and local preview outputs are not deliverable source. No publication workflow, host settings or repository ignore rules were changed. Work remains uncommitted and unpublished.
+Generated dependencies and local preview outputs stay local. The website is published through the GitHub Pages workflow described below; the private editor and library remain excluded from the public repository and deployment.
 
 ## GitHub Pages delivery
 
