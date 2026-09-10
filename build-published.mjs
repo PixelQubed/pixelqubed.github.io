@@ -24,9 +24,6 @@ export function buildPublished(out){
  // Regenerate the shared chrome from its website copy while retaining the versioned API data/pages.
  fs.copyFileSync(path.join(website,'assets/design.css'),path.join(temporary,'assets/site.css'));
  const result=build({out,handbook:temporary,publicPortfolio:path.join(content,'portfolio')});
- // Publish the supplied verification file at Discord's exact HTTPS endpoint.
- fs.mkdirSync(path.join(out,'.well-known'),{recursive:true});
- fs.copyFileSync(path.join(website,'.well-known/discord/dh=aeea7c4bd2a53f6f656b1c347f1377774f9d244a'),path.join(out,'.well-known/discord'));
  fs.writeFileSync(path.join(out,'.nojekyll'),'');
  fs.writeFileSync(path.join(out,'deployment.json'),JSON.stringify({sourceRevision:process.env.GITHUB_SHA||null,snapshot:release.snapshot,handbookSha256:digest}));
  for(const forbidden of ['editor','library','node_modules','.git','public-content','dev.mjs','portfolio-library.mjs'])if(fs.existsSync(path.join(out,forbidden)))throw Error('Private/source path found in public output');
